@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Container, makeStyles, Typography, IconButton, Button, Paper, Grid, Divider, TextField    } from '@material-ui/core';
+import {Box, Container, makeStyles, Typography, IconButton, Button, Paper, Grid, Divider, TextField, CircularProgress     } from '@material-ui/core';
 import {ArrowDownward, Send} from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,10 +49,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom:"200px",
-    width: "50%",
+    width: "75%",
   },
   spaced: {
     padding:"50px",
+  },
+  spaced2: {
+    padding:"25px",
   },
 }));
 
@@ -91,7 +94,7 @@ function App() {
       </Grid>
       <Divider variant="middle"/>
       <form action="">
-        <Box className={classes.spaced}>
+        <Box className={classes.spaced2}>
         <TextField label="Name" fullWidth margin="dense" size="small" variant="outlined"/>
         <TextField label="Contact" fullWidth margin="dense" size="small" variant="outlined"/>
         <TextField label="Message" fullWidth margin="dense" size="small" variant="outlined" multiline rows={4}/>
@@ -102,31 +105,80 @@ function App() {
     <Box className={classes.skills1}>
       <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>My Skills</Typography>
-      <Typography variant="body1" align="center" gutterBottom>Hey! I am Pierre ASDRUBAL, WEB Developer, graduate from the University of Orleans in France and self-taught since then. Always glad to learn something new and improve my skills. Don't hesitate to have a look at my previous work or to contact me, I would be happy to get something new started. Hope to hear from you soon</Typography>
       </Container>
     </Box>
     <Paper className={classes.skills2} elevation={3}>
-      <Grid className={classes.spaced} container justify="space-evenly">
-        <Grid item>
-        <Typography variant="h6" align="center" gutterBottom>Phone</Typography>
-      <Typography variant="body2" align="center" gutterBottom>+33 7 84 54 39 25</Typography>
-
+      <Grid container alignItems="center" justify="space-evenly" direction="row">
+        <Grid item  alignItems="center" justify="space-evenly"  direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-        <Typography variant="h6" align="center" gutterBottom>E-mail</Typography>
-      <Typography variant="body2" align="center" gutterBottom>pierre.asdrubal@gmail.com</Typography>
-
+        <Divider orientation="vertical" flexItem />
+        <Grid item alignItems="center" justify="space-evenly" item direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+          </Grid>
         </Grid>
+        <Divider orientation="vertical" flexItem />
+        <Grid item alignItems="center" justify="space-evenly" item direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+          </Grid>
+        </Grid>
+        
       </Grid>
-      <Divider variant="middle"/>
-      <form action="">
-        <Box className={classes.spaced}>
-        <TextField label="Name" fullWidth margin="dense" size="small" variant="outlined"/>
-        <TextField label="Contact" fullWidth margin="dense" size="small" variant="outlined"/>
-        <TextField label="Message" fullWidth margin="dense" size="small" variant="outlined" multiline rows={4}/>
-        <Button className={classes.aboutButton} endIcon={<Send/>} fullWidth>Send </Button>
-        </Box>
-      </form>
     </Paper>
     </>
   );
