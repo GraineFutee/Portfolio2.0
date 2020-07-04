@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "200px",
     width: "75%",
   },
-  workCard: { display: "flex" },
+  workCard: { display: "flex", margin: "50px" },
   workCardMedia: { width: "35%" },
   workButton: {
     background:
@@ -237,12 +237,7 @@ function App() {
           justify="space-evenly"
           direction="row"
         >
-          <Grid
-            item
-            alignItems="center"
-            justify="space-evenly"
-            direction="column"
-          >
+          <Grid item>
             <Grid item>
               <Box
                 position="relative"
@@ -295,12 +290,7 @@ function App() {
             </Grid>
           </Grid>
           <Divider orientation="vertical" flexItem />
-          <Grid
-            item
-            alignItems="center"
-            justify="space-evenly"
-            direction="column"
-          >
+          <Grid item>
             <Grid item>
               <Box
                 position="relative"
@@ -353,12 +343,7 @@ function App() {
             </Grid>
           </Grid>
           <Divider orientation="vertical" flexItem />
-          <Grid
-            item
-            alignItems="center"
-            justify="space-evenly"
-            direction="column"
-          >
+          <Grid item>
             <Grid item>
               <Box
                 position="relative"
@@ -433,7 +418,7 @@ function App() {
         <Card className={classes.workCard}>
           <CardMedia
             className={classes.workCardMedia}
-            image="/background/bg.jpg"
+            image="/work/CocktailsLife/index.png"
             title="Live from space album cover"
           />
           <div>
@@ -458,7 +443,6 @@ function App() {
                     </ListItem>
                   </List>
                 </Grid>
-                {/* <Divider orientation="vertical" flexItem /> */}
                 <Grid item className={classes.spaced2}>
                   <Button
                     className={classes.workButton}
@@ -466,6 +450,105 @@ function App() {
                     fullWidth
                   >
                     Preview
+                  </Button>
+                  <Button
+                    className={classes.gitButton}
+                    endIcon={<GitHub />}
+                    fullWidth
+                  >
+                    View Code
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </div>
+        </Card>
+        <Card className={classes.workCard}>
+          <CardMedia
+            className={classes.workCardMedia}
+            image="/work/RecipeZ/index.png"
+            title="Live from space album cover"
+          />
+          <div>
+            <CardContent>
+              <Grid container direction="row" justify="space-evenly">
+                <Grid item className={classes.spaced2}>
+                  <Typography component="h6" variant="h6">
+                    RecipeZ
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    A complete application build with :
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemText secondary="Front : REACT" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Back : express" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Database : PostgreSQL" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="CSS Framework : Bulma, SASS" />
+                    </ListItem>
+                  </List>
+                </Grid>
+                <Grid item className={classes.spaced2}>
+                  <Button
+                    className={classes.workButton}
+                    endIcon={<PermMedia />}
+                    fullWidth
+                  >
+                    Preview
+                  </Button>
+                  <Button
+                    className={classes.gitButton}
+                    endIcon={<GitHub />}
+                    fullWidth
+                  >
+                    View Code
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </div>
+        </Card>
+        <Card className={classes.workCard}>
+          <CardMedia
+            className={classes.workCardMedia}
+            image="/work/ArtOfLevani/index.png"
+            title="Live from space album cover"
+          />
+          <div>
+            <CardContent>
+              <Grid container direction="row" justify="space-evenly">
+                <Grid item className={classes.spaced2}>
+                  <Typography component="h6" variant="h6">
+                    ArtOfLevani
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    A professional website build with :
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemText secondary="Front : NextJs" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Back : NextJs" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="CSS Framework : Bulma, SASS" />
+                    </ListItem>
+                  </List>
+                </Grid>
+                <Grid item className={classes.spaced2}>
+                  <Button
+                    className={classes.workButton}
+                    endIcon={<Public />}
+                    fullWidth
+                  >
+                    Website
                   </Button>
                   <Button
                     className={classes.gitButton}
