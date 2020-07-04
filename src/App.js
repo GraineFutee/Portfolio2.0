@@ -1,6 +1,6 @@
 import React from 'react';
-import {Box, Container, makeStyles, Typography, IconButton, Button, Paper, Grid, Divider, TextField, CircularProgress     } from '@material-ui/core';
-import {ArrowDownward, Send} from '@material-ui/icons';
+import {Box, Container, makeStyles, Typography, IconButton, Button, Paper, Grid, Divider, TextField, CircularProgress, List, ListItem, ListItemText     } from '@material-ui/core';
+import {ArrowDownward, Send, AccountTree, FlipToBack, FlipToFront, Description} from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   about1: {
     paddingTop:"120px",
-    background:"linear-gradient(145deg, rgba(255,177,66,1) 0%, rgba(255,218,121,1) 100%)",
+    background:"linear-gradient(145deg, rgba(64,64,122,1) 0%, rgba(112,111,211,1) 100%)",
     color: "#ffffff",
     paddingBottom:"200px",
   },
@@ -34,22 +34,56 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
   },
   aboutButton: {
-    background:"linear-gradient(145deg, rgba(255,177,66,1) 0%, rgba(255,218,121,1) 100%)",
+    background:"linear-gradient(145deg, rgba(64,64,122,1) 0%, rgba(112,111,211,1) 100%)",
     color: "#ffffff",
     marginTop:"40px",
   },
   skills1: {
     paddingTop:"120px",
-    background:"linear-gradient(145deg, rgba(52,172,224,1) 0%, rgba(51,217,178,1) 100%)",
+    background:"linear-gradient(145deg, rgba(255,177,66,1) 0%, rgba(255,218,121,1) 100%)",
     color: "#ffffff",
     paddingBottom:"200px",
   },
   skills2: {
+    padding:"25px",
     marginTop:"-120px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom:"200px",
     width: "75%",
+  },
+  skillsButton: {
+    background:"linear-gradient(145deg, rgba(255,177,66,1) 0%, rgba(255,218,121,1) 100%)",
+    color: "#ffffff",
+    marginTop:"40px",
+  },
+  progress1:{
+    color: "#34ace0"
+  },
+  progress2:{
+    color: "#31c3d7"
+  },
+  progress3:{
+    color: "#33d9b2"
+  },
+  work1: {
+    paddingTop:"120px",
+    background:"linear-gradient(145deg, rgba(33,140,116,1) 0%, rgba(51,217,178,1) 100%)",
+    color: "#ffffff",
+    paddingBottom:"200px",
+  },
+  work2: {
+    padding:"25px",
+    marginTop:"-120px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom:"200px",
+    width: "75%",
+  },
+  workButton: {
+    background:"linear-gradient(145deg, rgba(33,140,116,1) 0%, rgba(51,217,178,1) 100%)",
+    color: "#ffffff",
+    marginTop:"40px",
   },
   spaced: {
     padding:"50px",
@@ -105,6 +139,7 @@ function App() {
     <Box className={classes.skills1}>
       <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>My Skills</Typography>
+      <Typography variant="body1" align="center" gutterBottom>I focused on being Full Stack, I keep interested in all part of a project realisation.</Typography>
       </Container>
     </Box>
     <Paper className={classes.skills2} elevation={3}>
@@ -112,7 +147,7 @@ function App() {
         <Grid item  alignItems="center" justify="space-evenly"  direction="column">
           <Grid item>
             <Box position="relative" display="inline-flex" className={classes.spaced2}>
-              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <CircularProgress size={120} thickness={6} variant="static" value={40} className={classes.progress1}/>
               <Box
                 top={0}
                 left={0}
@@ -124,18 +159,36 @@ function App() {
                 justifyContent="center"
               >
                 <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+                <AccountTree/>
               </Box>
             </Box>
           </Grid>
           <Grid item>
-            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="AGILE"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="LEAN Management"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Specification creation"
+                  />
+                </ListItem>
+            </List>
           </Grid>
         </Grid>
         <Divider orientation="vertical" flexItem />
-        <Grid item alignItems="center" justify="space-evenly" item direction="column">
+        <Grid item alignItems="center" justify="space-evenly" direction="column">
           <Grid item>
             <Box position="relative" display="inline-flex" className={classes.spaced2}>
-              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <CircularProgress size={120} thickness={6} variant="static" value={60} className={classes.progress2}/>
               <Box
                 top={0}
                 left={0}
@@ -146,19 +199,37 @@ function App() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+                <Typography variant="caption" component="div" color="textSecondary">Back</Typography>
+                <FlipToBack/>
               </Box>
             </Box>
           </Grid>
           <Grid item>
-            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="Express"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="JOI"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="MongoDB"
+                  />
+                </ListItem>
+            </List>
           </Grid>
         </Grid>
         <Divider orientation="vertical" flexItem />
-        <Grid item alignItems="center" justify="space-evenly" item direction="column">
+        <Grid item alignItems="center" justify="space-evenly" direction="column">
           <Grid item>
             <Box position="relative" display="inline-flex" className={classes.spaced2}>
-              <CircularProgress size={120} thickness={6} variant="static" value={40} />
+              <CircularProgress size={120} thickness={6} variant="static" value={75} className={classes.progress3}/>
               <Box
                 top={0}
                 left={0}
@@ -169,16 +240,169 @@ function App() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+                <Typography variant="caption" component="div" color="textSecondary">Front</Typography>
+                <FlipToFront/>
               </Box>
             </Box>
           </Grid>
           <Grid item>
-            <Typography variant="h7" align="center" gutterBottom>Technologies/Methods</Typography>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="React"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Material UI"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Axios"
+                  />
+                </ListItem>
+            </List>
           </Grid>
         </Grid>
         
       </Grid>
+      <Button className={classes.skillsButton} endIcon={<Description/>} fullWidth>Get Resume </Button>
+    </Paper>
+    <Box className={classes.work1}>
+      <Container maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>My Work</Typography>
+      <Typography variant="body1" align="center" gutterBottom>I focused on being Full Stack, I keep interested in all part of a project realisation.</Typography>
+      </Container>
+    </Box>
+    <Paper className={classes.work2} elevation={3}>
+      <Grid container alignItems="center" justify="space-evenly" direction="row">
+        <Grid item  alignItems="center" justify="space-evenly"  direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={40} className={classes.progress1}/>
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Project</Typography>
+                <AccountTree/>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="AGILE"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="LEAN Management"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Specification creation"
+                  />
+                </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+        <Divider orientation="vertical" flexItem />
+        <Grid item alignItems="center" justify="space-evenly" direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={60} className={classes.progress2}/>
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Back</Typography>
+                <FlipToBack/>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="Express"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="JOI"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="MongoDB"
+                  />
+                </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+        <Divider orientation="vertical" flexItem />
+        <Grid item alignItems="center" justify="space-evenly" direction="column">
+          <Grid item>
+            <Box position="relative" display="inline-flex" className={classes.spaced2}>
+              <CircularProgress size={120} thickness={6} variant="static" value={75} className={classes.progress3}/>
+              <Box
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="absolute"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography variant="caption" component="div" color="textSecondary">Front</Typography>
+                <FlipToFront/>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6" align="center" gutterBottom>Technologies/Methods</Typography>
+            <List dense>
+                <ListItem>
+                  <ListItemText
+                    primary="React"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Material UI"
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Axios"
+                  />
+                </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+        
+      </Grid>
+      <Button className={classes.workButton} endIcon={<Description/>} fullWidth>Get Resume </Button>
     </Paper>
     </>
   );
