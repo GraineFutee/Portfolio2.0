@@ -34,15 +34,14 @@ import {
 const useStyles = makeStyles((theme) => ({
   hero: {
     backgroundColor: "#2c3e50",
-    backgroundImage: "url(/background/bg.jpg)",
-    backgroundPosition: "center",
     [theme.breakpoints.down("xs")]: {
-      backgroundSize: "auto 100%",
+      backgroundImage: "url(/background/bgMobile.jpg)",
     },
     [theme.breakpoints.up("sm")]: {
-      backgroundSize: "cover",
+      backgroundImage: "url(/background/bg.jpg)",
     },
-
+    backgroundPosition: "center",
+    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     lineHeight: "100vh",
