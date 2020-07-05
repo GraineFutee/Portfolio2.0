@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useIntersection } from "react-use";
 import {
   Box,
   Container,
@@ -18,6 +19,8 @@ import {
   CardMedia,
   CardContent,
   withWidth,
+  Collapse,
+  Grow,
 } from "@material-ui/core";
 import {
   ArrowDownward,
@@ -29,6 +32,7 @@ import {
   GitHub,
   PermMedia,
   Public,
+  SwapHoriz,
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -193,6 +197,18 @@ const useStyles = makeStyles((theme) => ({
 
 function App(props) {
   const classes = useStyles();
+  const aboutRef = useRef(null);
+  const [aboutActive, setAboutActive] = useState(false);
+
+  const intersectionAbout = useIntersection(aboutRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.9,
+  });
+
+  if (intersectionAbout && !aboutActive && intersectionAbout.isIntersecting) {
+    setAboutActive(true);
+  }
   return (
     <Box className={classes.allPage}>
       <Box className={classes.hero}>
@@ -204,75 +220,82 @@ function App(props) {
           </IconButton>
         </Container>
       </Box>
-      <Box className={classes.about1}>
+
+      <Box ref={aboutRef} className={classes.about1}>
         <Container maxWidth="sm">
-          <Typography variant="h4" align="center" gutterBottom>
-            Who am I
-          </Typography>
-          <Typography variant="body1" align="center" gutterBottom>
-            Hey! I am Pierre ASDRUBAL, WEB Developer, graduate from the
-            University of Orleans in France and self-taught since then. Always
-            glad to learn something new and improve my skills. Don't hesitate to
-            have a look at my previous work or to contact me, I would be happy
-            to get something new started. Hope to hear from you soon
-          </Typography>
+          <Grow in={aboutActive} timeout={500}>
+            <Typography variant="h4" align="center" gutterBottom>
+              Who am I
+            </Typography>
+          </Grow>
+          <Grow in={aboutActive} timeout={750}>
+            <Typography variant="body1" align="center" gutterBottom>
+              Hey! I am Pierre ASDRUBAL, WEB Developer, graduate from the
+              University of Orleans in France and self-taught since then. Always
+              glad to learn something new and improve my skills. Don't hesitate
+              to have a look at my previous work or to contact me, I would be
+              happy to get something new started. Hope to hear from you soon
+            </Typography>
+          </Grow>
         </Container>
       </Box>
-      <Paper className={classes.about2} elevation={3}>
-        <Grid className={classes.spaced} container justify="space-evenly">
-          <Grid item>
-            <Typography variant="h6" align="center" gutterBottom>
-              Phone
-            </Typography>
-            <Typography variant="body2" align="center" gutterBottom>
-              +33 7 84 54 39 25
-            </Typography>
+      <Grow in={aboutActive} timeout={1000}>
+        <Paper className={classes.about2} elevation={3}>
+          <Grid className={classes.spaced} container justify="space-evenly">
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                Phone
+              </Typography>
+              <Typography variant="body2" align="center" gutterBottom>
+                +33 7 84 54 39 25
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                E-mail
+              </Typography>
+              <Typography variant="body2" align="center" gutterBottom>
+                pierre.asdrubal@gmail.com
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="h6" align="center" gutterBottom>
-              E-mail
-            </Typography>
-            <Typography variant="body2" align="center" gutterBottom>
-              pierre.asdrubal@gmail.com
-            </Typography>
-          </Grid>
-        </Grid>
-        <Divider variant="middle" />
-        <form action="">
-          <Box className={classes.spaced2}>
-            <TextField
-              label="Name"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-            />
-            <TextField
-              label="Contact"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-            />
-            <TextField
-              label="Message"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-              multiline
-              rows={4}
-            />
-            <Button
-              className={classes.aboutButton}
-              endIcon={<Send />}
-              fullWidth
-            >
-              Send{" "}
-            </Button>
-          </Box>
-        </form>
-      </Paper>
+          <Divider variant="middle" />
+          <form action="">
+            <Box className={classes.spaced2}>
+              <TextField
+                label="Name"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+              />
+              <TextField
+                label="Contact"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+              />
+              <TextField
+                label="Message"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+                multiline
+                rows={4}
+              />
+              <Button
+                className={classes.aboutButton}
+                endIcon={<Send />}
+                fullWidth
+              >
+                Send{" "}
+              </Button>
+            </Box>
+          </form>
+        </Paper>
+      </Grow>
       <Box className={classes.skills1}>
         <Container maxWidth="sm">
           <Typography variant="h4" align="center" gutterBottom>
@@ -340,6 +363,12 @@ function App(props) {
                 <ListItem>
                   <ListItemText primary="Specification creation" />
                 </ListItem>
+                <ListItem>
+                  <ListItemText primary="Netlify" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Heroku" />
+                </ListItem>
               </List>
             </Grid>
           </Grid>
@@ -398,6 +427,12 @@ function App(props) {
                 <ListItem>
                   <ListItemText primary="MongoDB" />
                 </ListItem>
+                <ListItem>
+                  <ListItemText primary="PostgreSQL" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="REST" />
+                </ListItem>
               </List>
             </Grid>
           </Grid>
@@ -455,6 +490,12 @@ function App(props) {
                 <ListItem>
                   <ListItemText primary="Axios" />
                 </ListItem>
+                <ListItem>
+                  <ListItemText primary="Bulma / Bootstrap" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Jest" />
+                </ListItem>
               </List>
             </Grid>
           </Grid>
@@ -467,6 +508,7 @@ function App(props) {
           Get Resume{" "}
         </Button>
       </Paper>
+
       <Box className={classes.work1}>
         <Container maxWidth="sm">
           <Typography variant="h4" align="center" gutterBottom>
