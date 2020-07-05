@@ -17,6 +17,7 @@ import {
   Card,
   CardMedia,
   CardContent,
+  withWidth,
 } from "@material-ui/core";
 import {
   ArrowDownward,
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     verticalAlign: "middle",
   },
+  arrow: {
+    color: "#ffffff",
+  },
   about1: {
     paddingTop: "120px",
     background:
@@ -59,7 +63,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
-    width: "50%",
+    [theme.breakpoints.down("xs")]: {
+      width: "90%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "75%",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+    },
   },
   aboutButton: {
     background:
@@ -80,7 +92,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
-    width: "75%",
+    [theme.breakpoints.down("xs")]: {
+      width: "80%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "75%",
+    },
   },
   skillsButton: {
     background:
@@ -110,10 +127,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
-    width: "75%",
+    [theme.breakpoints.up("xs")]: {
+      width: "80%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "75%",
+    },
   },
   workCard: { display: "flex", margin: "50px" },
-  workCardMedia: { width: "35%" },
+  workCardMedia: { width: "300px", minHeight: "150px" },
   workButton: {
     background:
       "linear-gradient(145deg, rgba(33,140,116,1) 0%, rgba(51,217,178,1) 100%)",
@@ -132,20 +154,22 @@ const useStyles = makeStyles((theme) => ({
   spaced2: {
     padding: "25px",
   },
+  dividerHorizon: {
+    width: "100%",
+  },
 }));
 
-function App() {
+function App(props) {
   const classes = useStyles();
   return (
     <>
       <Box className={classes.hero}>
         <Container className={classes.hero_body}>
-          <Typography variant="h3">Welcome on my Portfolio</Typography>
+          <Typography variant="h3">Welcome to my Portfolio</Typography>
           <Typography variant="subtitle1">
             Pierre ASDRUBAL - Web devloper
           </Typography>
-          <Divider light />
-          <IconButton aria-label="Down" color="primary">
+          <IconButton aria-label="Down" className={classes.arrow}>
             <ArrowDownward />
           </IconButton>
         </Container>
@@ -289,7 +313,12 @@ function App() {
               </List>
             </Grid>
           </Grid>
-          <Divider orientation="vertical" flexItem />
+          {props.width === "xs" || props.width === "sm" ? (
+            <Divider variant="middle" className={classes.dividerHorizon} />
+          ) : (
+            <Divider orientation="vertical" flexItem />
+          )}
+
           <Grid item>
             <Grid item>
               <Box
@@ -342,7 +371,12 @@ function App() {
               </List>
             </Grid>
           </Grid>
-          <Divider orientation="vertical" flexItem />
+          {console.log(props.width)}
+          {props.width === "xs" || props.width === "sm" ? (
+            <Divider variant="middle" className={classes.dividerHorizon} />
+          ) : (
+            <Divider orientation="vertical" flexItem />
+          )}
           <Grid item>
             <Grid item>
               <Box
@@ -416,14 +450,14 @@ function App() {
       </Box>
       <Paper className={classes.work2} elevation={3}>
         <Card className={classes.workCard}>
-          <CardMedia
-            className={classes.workCardMedia}
-            image="/work/CocktailsLife/index.png"
-            title="Live from space album cover"
-          />
           <div>
             <CardContent>
               <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/CocktailsLife/index.png"
+                  title="CocktailsLife Preview"
+                />
                 <Grid item className={classes.spaced2}>
                   <Typography component="h6" variant="h6">
                     CocktailsLife
@@ -464,14 +498,14 @@ function App() {
           </div>
         </Card>
         <Card className={classes.workCard}>
-          <CardMedia
-            className={classes.workCardMedia}
-            image="/work/RecipeZ/index.png"
-            title="Live from space album cover"
-          />
           <div>
             <CardContent>
               <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/RecipeZ/index.png"
+                  title="RecipeZ Preview"
+                />
                 <Grid item className={classes.spaced2}>
                   <Typography component="h6" variant="h6">
                     RecipeZ
@@ -515,14 +549,14 @@ function App() {
           </div>
         </Card>
         <Card className={classes.workCard}>
-          <CardMedia
-            className={classes.workCardMedia}
-            image="/work/ArtOfLevani/index.png"
-            title="Live from space album cover"
-          />
           <div>
             <CardContent>
               <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/ArtOfLevani/index.png"
+                  title="ArtOfLevani Preview"
+                />
                 <Grid item className={classes.spaced2}>
                   <Typography component="h6" variant="h6">
                     ArtOfLevani
@@ -567,4 +601,4 @@ function App() {
   );
 }
 
-export default App;
+export default withWidth()(App);
