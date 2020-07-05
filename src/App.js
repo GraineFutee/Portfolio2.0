@@ -19,7 +19,6 @@ import {
   CardMedia,
   CardContent,
   withWidth,
-  Collapse,
   Grow,
 } from "@material-ui/core";
 import {
@@ -32,7 +31,6 @@ import {
   GitHub,
   PermMedia,
   Public,
-  SwapHoriz,
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
