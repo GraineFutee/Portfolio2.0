@@ -32,6 +32,21 @@ import {
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
+  allPage: {
+    backgroundColor: "#2c3e50",
+    [theme.breakpoints.down("xs")]: {
+      backgroundImage: "url(/background/bodyBgMobile.jpg)",
+      backgroundAttachment: "scroll",
+    },
+    [theme.breakpoints.up("sm")]: {
+      backgroundImage: "url(/background/bodyBg.jpg)",
+      backgroundAttachment: "fixed",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    },
+    backgroundPosition: "center center",
+    paddingBottom: "200px",
+  },
   hero: {
     backgroundColor: "#2c3e50",
 
@@ -133,7 +148,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "-120px",
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: "200px",
     [theme.breakpoints.up("xs")]: {
       width: "90%",
       paddingTop: "10px",
@@ -180,7 +194,7 @@ const useStyles = makeStyles((theme) => ({
 function App(props) {
   const classes = useStyles();
   return (
-    <>
+    <Box className={classes.allPage}>
       <Box className={classes.hero}>
         <Container className={classes.hero_body}>
           <Typography variant="h3">Pierre ASDRUBAL - Web devloper</Typography>
@@ -302,7 +316,7 @@ function App(props) {
                   justifyContent="center"
                 >
                   <Typography
-                    variant="caption"
+                    variant="overline"
                     component="div"
                     color="textSecondary"
                   >
@@ -360,7 +374,7 @@ function App(props) {
                   justifyContent="center"
                 >
                   <Typography
-                    variant="caption"
+                    variant="overline"
                     component="div"
                     color="textSecondary"
                   >
@@ -417,7 +431,7 @@ function App(props) {
                   justifyContent="center"
                 >
                   <Typography
-                    variant="caption"
+                    variant="overline"
                     component="div"
                     color="textSecondary"
                   >
@@ -612,7 +626,7 @@ function App(props) {
           </div>
         </Card>
       </Paper>
-    </>
+    </Box>
   );
 }
 
