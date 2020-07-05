@@ -223,7 +223,7 @@ function App(props) {
 
       <Box ref={aboutRef} className={classes.about1}>
         <Container maxWidth="sm">
-          <Grow in={aboutActive} timeout={500}>
+          <Grow in={aboutActive} timeout={500} disableStrictModeCompat={true}>
             <Typography variant="h4" align="center" gutterBottom>
               Who am I
             </Typography>
