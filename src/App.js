@@ -36,7 +36,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2c3e50",
     backgroundImage: "url(/background/bg.jpg)",
     backgroundPosition: "center",
-    backgroundSize: "cover",
+    [theme.breakpoints.down("xs")]: {
+      backgroundSize: "auto 100%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      backgroundSize: "cover",
+    },
+
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     lineHeight: "100vh",
@@ -122,20 +128,30 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "200px",
   },
   work2: {
-    padding: "25px",
     marginTop: "-120px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
     [theme.breakpoints.up("xs")]: {
-      width: "80%",
+      width: "90%",
+      paddingTop: "10px",
+      paddingBottom: "10px",
     },
     [theme.breakpoints.up("sm")]: {
       width: "75%",
+      padding: "25px",
     },
   },
-  workCard: { display: "flex", margin: "50px" },
-  workCardMedia: { width: "300px", minHeight: "150px" },
+  workCard: {
+    display: "flex",
+    [theme.breakpoints.up("xs")]: {
+      margin: "10px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "50px",
+    },
+  },
+  workCardMedia: { width: "280px", minHeight: "135px" },
   workButton: {
     background:
       "linear-gradient(145deg, rgba(33,140,116,1) 0%, rgba(51,217,178,1) 100%)",
@@ -165,10 +181,8 @@ function App(props) {
     <>
       <Box className={classes.hero}>
         <Container className={classes.hero_body}>
-          <Typography variant="h3">Welcome to my Portfolio</Typography>
-          <Typography variant="subtitle1">
-            Pierre ASDRUBAL - Web devloper
-          </Typography>
+          <Typography variant="h3">Pierre ASDRUBAL - Web devloper</Typography>
+          <Typography variant="subtitle1">Welcome to my Portfolio</Typography>
           <IconButton aria-label="Down" className={classes.arrow}>
             <ArrowDownward />
           </IconButton>
@@ -371,7 +385,6 @@ function App(props) {
               </List>
             </Grid>
           </Grid>
-          {console.log(props.width)}
           {props.width === "xs" || props.width === "sm" ? (
             <Divider variant="middle" className={classes.dividerHorizon} />
           ) : (
