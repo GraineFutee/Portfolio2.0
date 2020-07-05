@@ -37,9 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.down("xs")]: {
       backgroundImage: "url(/background/bgMobile.jpg)",
+      backgroundAttachment: "scroll",
     },
     [theme.breakpoints.up("sm")]: {
       backgroundImage: "url(/background/bg.jpg)",
+      backgroundAttachment: "fixed",
     },
     lineHeight: "100vh",
     height: "100vh",
@@ -47,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
   },
   hero_body: {
     color: "#ffffff",
