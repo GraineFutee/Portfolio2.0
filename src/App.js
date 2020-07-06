@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useIntersection } from "react-use";
 import {
   Box,
@@ -23,6 +23,8 @@ import {
   Collapse,
   Slide,
   Avatar,
+  Modal,
+  MobileStepper,
 } from "@material-ui/core";
 import {
   ArrowDownward,
@@ -35,6 +37,8 @@ import {
   GitHub,
   PermMedia,
   Public,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -131,6 +135,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "40px",
   },
   skills1: {
+    marginTop: "200px",
     paddingTop: "120px",
     background:
       "linear-gradient(145deg, rgba(255,177,66,1) 0%, rgba(255,218,121,1) 100%)",
@@ -246,6 +251,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     marginTop: "40px",
   },
+  modalImg: {
+    maxHeight: 500,
+    maxWidth: 800,
+    overflow: "hidden",
+    display: "block",
+    height: "100%",
+    width: "100%",
+  },
 }));
 
 function App(props) {
@@ -263,6 +276,11 @@ function App(props) {
   const contactRef = useRef(null);
   const [contactActive, setContactActive] = useState(false);
   const [contact2Active, setContact2Active] = useState(false);
+  const [modal, setModal] = useState({
+    active: false,
+    data: [],
+    step: 1,
+  });
 
   const intersectionAbout = useIntersection(aboutRef, {
     root: null,
@@ -313,6 +331,9 @@ function App(props) {
     setContactActive(true);
     setTimeout(() => setContact2Active(true), 750);
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Box className={classes.allPage}>
       <Box id="top" className={classes.hero}>
@@ -654,6 +675,20 @@ function App(props) {
                       className={classes.workButton}
                       endIcon={<PermMedia />}
                       fullWidth
+                      onClick={() =>
+                        setModal({
+                          active: true,
+                          data: [
+                            { imagePath: "Main.png", label: "Home page" },
+                            { imagePath: "Recipes.png", label: "Recipes list" },
+                            {
+                              imagePath: "Negroni.png",
+                              label: "Negroni recipe",
+                            },
+                          ],
+                          step: 1,
+                        })
+                      }
                     >
                       Preview
                     </Button>
@@ -839,6 +874,59 @@ function App(props) {
           </form>
         </Collapse>
       </Paper>
+      <Modal
+        open={modal.active}
+        onClose={() => setModal({ active: false, data: [] })}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div>
+          <Paper square elevation={0}>
+            <Typography>
+              {modal.data.length > 0 ? modal.data[modal.step - 1].label : ""}
+            </Typography>
+          </Paper>
+          <img
+            className={classes.modalImg}
+            src={
+              modal.data.length > 0
+                ? `/work/CocktailsLife/${modal.data[modal.step - 1].imagePath}`
+                : ""
+            }
+            alt={modal.data.length > 0 ? modal.data[modal.step - 1].label : ""}
+          />
+          <MobileStepper
+            steps={modal.data.length}
+            position="static"
+            variant="text"
+            activeStep={modal.step - 1}
+            nextButton={
+              <Button
+                size="small"
+                onClick={() => {
+                  setModal({ ...modal, step: modal.step + 1 });
+                }}
+                disabled={modal.step === modal.data.length}
+              >
+                Next
+                <KeyboardArrowRight />
+              </Button>
+            }
+            backButton={
+              <Button
+                size="small"
+                onClick={() => {
+                  setModal({ ...modal, step: modal.step - 1 });
+                }}
+                disabled={modal.step === 1}
+              >
+                <KeyboardArrowLeft />
+                Back
+              </Button>
+            }
+          />
+        </div>
+      </Modal>
     </Box>
   );
 }
