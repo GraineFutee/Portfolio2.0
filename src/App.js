@@ -26,6 +26,7 @@ import {
 } from "@material-ui/core";
 import {
   ArrowDownward,
+  ArrowUpward,
   Send,
   AccountTree,
   FlipToBack,
@@ -87,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "200px",
   },
   about2: {
-    marginTop: "-170px",
+    marginTop: "-200px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
@@ -103,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   avatar: {
-    marginTop: "-170px",
+    marginTop: "-200px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
@@ -138,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   },
   skills2: {
     padding: "25px",
-    marginTop: "-170px",
+    marginTop: "-200px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
@@ -172,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "200px",
   },
   work2: {
-    marginTop: "-170px",
+    marginTop: "-200px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
@@ -225,7 +226,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "200px",
   },
   contact2: {
-    marginTop: "-170px",
+    marginTop: "-200px",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "200px",
@@ -259,6 +260,9 @@ function App(props) {
   const workRef = useRef(null);
   const [workActive, setWorkActive] = useState(false);
   const [work2Active, setWork2Active] = useState(false);
+  const contactRef = useRef(null);
+  const [contactActive, setContactActive] = useState(false);
+  const [contact2Active, setContact2Active] = useState(false);
 
   const intersectionAbout = useIntersection(aboutRef, {
     root: null,
@@ -273,6 +277,12 @@ function App(props) {
   });
 
   const intersectionWork = useIntersection(workRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.9,
+  });
+
+  const intersectionContact = useIntersection(contactRef, {
     root: null,
     rootMargin: "0px",
     threshold: 0.9,
@@ -295,25 +305,34 @@ function App(props) {
     setWorkActive(true);
     setTimeout(() => setWork2Active(true), 750);
   }
+  if (
+    intersectionContact &&
+    !contactActive &&
+    intersectionContact.isIntersecting
+  ) {
+    setContactActive(true);
+    setTimeout(() => setContact2Active(true), 750);
+  }
   return (
     <Box className={classes.allPage}>
-      <Box className={classes.hero}>
+      <Box id="top" className={classes.hero}>
         <Container className={classes.hero_body}>
           <Typography variant="h3">Pierre ASDRUBAL - Web devloper</Typography>
           <Typography variant="subtitle1">Welcome to my Portfolio</Typography>
-          <IconButton aria-label="Down" className={classes.arrow}>
+          <IconButton aria-label="Down" className={classes.arrow} href="#about">
             <ArrowDownward />
           </IconButton>
         </Container>
       </Box>
 
-      <Box ref={aboutRef} className={classes.about1}>
+      <Box id="about" ref={aboutRef} className={classes.about1}>
         <Container maxWidth="sm">
           <Zoom in={aboutActive} timeout={750}>
             <Typography variant="h4" align="center" gutterBottom>
               Who am I
             </Typography>
           </Zoom>
+
           <Zoom
             in={aboutActive}
             timeout={750}
@@ -327,6 +346,13 @@ function App(props) {
               happy to get something new started. Hope to hear from you soon
             </Typography>
           </Zoom>
+          <IconButton
+            aria-label="Down"
+            className={classes.arrow}
+            href="#skills"
+          >
+            <ArrowDownward />
+          </IconButton>
         </Container>
       </Box>
       <Slide
@@ -342,7 +368,7 @@ function App(props) {
           className={classes.avatar}
         />
       </Slide>
-      <Box ref={skillsRef} className={classes.skills1}>
+      <Box id="skills" ref={skillsRef} className={classes.skills1}>
         <Container maxWidth="sm">
           <Zoom in={skillsActive} timeout={750}>
             <Typography variant="h4" align="center" gutterBottom>
@@ -359,6 +385,9 @@ function App(props) {
               project realisation.
             </Typography>
           </Zoom>
+          <IconButton aria-label="Down" className={classes.arrow} href="#work">
+            <ArrowDownward />
+          </IconButton>
         </Container>
       </Box>
       <Paper className={classes.skills2} elevation={3}>
@@ -565,7 +594,7 @@ function App(props) {
         </Collapse>
       </Paper>
 
-      <Box ref={workRef} className={classes.work1}>
+      <Box id="work" ref={workRef} className={classes.work1}>
         <Container maxWidth="sm">
           <Zoom in={workActive} timeout={750}>
             <Typography variant="h4" align="center" gutterBottom>
@@ -581,6 +610,13 @@ function App(props) {
               Here is a preview of my last apps, fully responsive & functional.
             </Typography>
           </Zoom>
+          <IconButton
+            aria-label="Down"
+            className={classes.arrow}
+            href="#contact"
+          >
+            <ArrowDownward />
+          </IconButton>
         </Container>
       </Box>
       <Paper className={classes.work2} elevation={3}>
@@ -734,67 +770,74 @@ function App(props) {
           </Card>
         </Collapse>
       </Paper>
-      <Box className={classes.contact}>
+      <Box id="contact" ref={contactRef} className={classes.contact}>
         <Container maxWidth="sm">
-          <Typography variant="h4" align="center" gutterBottom>
-            Contact
-          </Typography>
+          <Zoom in={contactActive} timeout={750}>
+            <Typography variant="h4" align="center" gutterBottom>
+              Contact
+            </Typography>
+          </Zoom>
+          <IconButton aria-label="Down" className={classes.arrow} href="#top">
+            <ArrowUpward />
+          </IconButton>
         </Container>
       </Box>
       <Paper className={classes.contact2} elevation={3}>
-        <Grid className={classes.spaced} container justify="space-evenly">
-          <Grid item>
-            <Typography variant="h6" align="center" gutterBottom>
-              Phone
-            </Typography>
-            <Typography variant="body2" align="center" gutterBottom>
-              +33 7 84 54 39 25
-            </Typography>
+        <Collapse in={contact2Active} timeout={1500}>
+          <Grid className={classes.spaced} container justify="space-evenly">
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                Phone
+              </Typography>
+              <Typography variant="body2" align="center" gutterBottom>
+                +33 7 84 54 39 25
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                E-mail
+              </Typography>
+              <Typography variant="body2" align="center" gutterBottom>
+                pierre.asdrubal@gmail.com
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="h6" align="center" gutterBottom>
-              E-mail
-            </Typography>
-            <Typography variant="body2" align="center" gutterBottom>
-              pierre.asdrubal@gmail.com
-            </Typography>
-          </Grid>
-        </Grid>
-        <Divider variant="middle" />
-        <form action="">
-          <Box className={classes.spaced2}>
-            <TextField
-              label="Name"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-            />
-            <TextField
-              label="Contact"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-            />
-            <TextField
-              label="Message"
-              fullWidth
-              margin="dense"
-              size="small"
-              variant="outlined"
-              multiline
-              rows={4}
-            />
-            <Button
-              className={classes.contactButton}
-              endIcon={<Send />}
-              fullWidth
-            >
-              Send{" "}
-            </Button>
-          </Box>
-        </form>
+          <Divider variant="middle" />
+          <form action="">
+            <Box className={classes.spaced2}>
+              <TextField
+                label="Name"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+              />
+              <TextField
+                label="Contact"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+              />
+              <TextField
+                label="Message"
+                fullWidth
+                margin="dense"
+                size="small"
+                variant="outlined"
+                multiline
+                rows={4}
+              />
+              <Button
+                className={classes.contactButton}
+                endIcon={<Send />}
+                fullWidth
+              >
+                Send{" "}
+              </Button>
+            </Box>
+          </form>
+        </Collapse>
       </Paper>
     </Box>
   );
