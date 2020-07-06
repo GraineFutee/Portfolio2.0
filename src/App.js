@@ -898,7 +898,7 @@ function App(props) {
           </Grid>
         </Grid>
         <Divider variant="middle" />
-        <form name="messages" method="POST" data-netlify="true">
+        <form name="messages" action="POST" data-netlify="true">
           <Box className={classes.spaced2}>
             <TextField
               name="name"
