@@ -20,8 +20,6 @@ import {
   CardContent,
   withWidth,
   Zoom,
-  Collapse,
-  Slide,
   Avatar,
   Modal,
   MobileStepper,
@@ -44,16 +42,10 @@ import {
 const useStyles = makeStyles((theme) => ({
   allPage: {
     backgroundColor: "#2c3e50",
-    [theme.breakpoints.down("xs")]: {
-      backgroundImage: "url(/background/bodyBgMobile.jpg)",
-      backgroundAttachment: "scroll",
-    },
-    [theme.breakpoints.up("sm")]: {
-      backgroundImage: "url(/background/bodyBg.jpg)",
-      backgroundAttachment: "fixed",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-    },
+    backgroundImage: "url(/background/bodyBg.jpg)",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     paddingBottom: "200px",
   },
@@ -251,13 +243,34 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     marginTop: "40px",
   },
+  modalHeader: {
+    display: "flex",
+    alignItems: "center",
+    height: 50,
+    paddingLeft: 15,
+    backgroundColor: "#ffffff",
+  },
   modalImg: {
-    maxHeight: 500,
-    maxWidth: 800,
     overflow: "hidden",
     display: "block",
     height: "100%",
     width: "100%",
+  },
+  modalBody: {
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "85%",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "75%",
+    },
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+
+    transform: "translate(-50%, -50%)",
   },
 }));
 
@@ -270,12 +283,11 @@ function App(props) {
   const [skillsActive, setSkillsActive] = useState(false);
   const [skills2Active, setSkills2Active] = useState(false);
   const [skills3Active, setSkills3Active] = useState(false);
+  const [skills4Active, setSkills4Active] = useState(false);
   const workRef = useRef(null);
   const [workActive, setWorkActive] = useState(false);
-  const [work2Active, setWork2Active] = useState(false);
   const contactRef = useRef(null);
   const [contactActive, setContactActive] = useState(false);
-  const [contact2Active, setContact2Active] = useState(false);
   const [modal, setModal] = useState({
     active: false,
     data: [],
@@ -308,7 +320,7 @@ function App(props) {
 
   if (intersectionAbout && !aboutActive && intersectionAbout.isIntersecting) {
     setAboutActive(true);
-    setTimeout(() => setAbout2Active(true), 750);
+    setTimeout(() => setAbout2Active(true), 500);
   }
   if (
     intersectionSkills &&
@@ -316,12 +328,12 @@ function App(props) {
     intersectionSkills.isIntersecting
   ) {
     setSkillsActive(true);
-    setTimeout(() => setSkills2Active(true), 750);
-    setTimeout(() => setSkills3Active(true), 1330);
+    setTimeout(() => setSkills2Active(true), 700);
+    setTimeout(() => setSkills3Active(true), 1000);
+    setTimeout(() => setSkills4Active(true), 1300);
   }
   if (intersectionWork && !workActive && intersectionWork.isIntersecting) {
     setWorkActive(true);
-    setTimeout(() => setWork2Active(true), 750);
   }
   if (
     intersectionContact &&
@@ -329,7 +341,6 @@ function App(props) {
     intersectionContact.isIntersecting
   ) {
     setContactActive(true);
-    setTimeout(() => setContact2Active(true), 750);
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -340,15 +351,21 @@ function App(props) {
         <Container className={classes.hero_body}>
           <Typography variant="h3">Pierre ASDRUBAL - Web devloper</Typography>
           <Typography variant="subtitle1">Welcome to my Portfolio</Typography>
-          <IconButton aria-label="Down" className={classes.arrow} href="#about">
-            <ArrowDownward />
-          </IconButton>
+          {props.width !== "xs" && (
+            <IconButton
+              aria-label="Down"
+              className={classes.arrow}
+              href="#about"
+            >
+              <ArrowDownward />
+            </IconButton>
+          )}
         </Container>
       </Box>
 
       <Box id="about" ref={aboutRef} className={classes.about1}>
         <Container maxWidth="sm">
-          <Zoom in={aboutActive} timeout={750}>
+          <Zoom in={aboutActive} timeout={500}>
             <Typography variant="h4" align="center" gutterBottom>
               Who am I
             </Typography>
@@ -356,7 +373,7 @@ function App(props) {
 
           <Zoom
             in={aboutActive}
-            timeout={750}
+            timeout={500}
             style={{ transitionDelay: aboutActive ? "330ms" : "0ms" }}
           >
             <Typography variant="body1" align="center" gutterBottom>
@@ -367,38 +384,34 @@ function App(props) {
               happy to get something new started. Hope to hear from you soon
             </Typography>
           </Zoom>
-          <IconButton
-            aria-label="Down"
-            className={classes.arrow}
-            href="#skills"
-          >
-            <ArrowDownward />
-          </IconButton>
+          {props.width !== "xs" && (
+            <IconButton
+              aria-label="Down"
+              className={classes.arrow}
+              href="#skills"
+            >
+              <ArrowDownward />
+            </IconButton>
+          )}
         </Container>
       </Box>
-      <Slide
-        direction="up"
-        mountOnEnter
-        unmountOnExit
-        in={about2Active}
-        timeout={1500}
-      >
+      <Zoom in={about2Active} timeout={1000}>
         <Avatar
           alt="Pierre ASDRUBAL"
           src="/profil/profil.jpg"
           className={classes.avatar}
         />
-      </Slide>
+      </Zoom>
       <Box id="skills" ref={skillsRef} className={classes.skills1}>
         <Container maxWidth="sm">
-          <Zoom in={skillsActive} timeout={750}>
+          <Zoom in={skillsActive} timeout={500}>
             <Typography variant="h4" align="center" gutterBottom>
               My Skills
             </Typography>
           </Zoom>
           <Zoom
             in={skillsActive}
-            timeout={750}
+            timeout={500}
             style={{ transitionDelay: skillsActive ? "330ms" : "0ms" }}
           >
             <Typography variant="body1" align="center" gutterBottom>
@@ -406,473 +419,519 @@ function App(props) {
               project realisation.
             </Typography>
           </Zoom>
-          <IconButton aria-label="Down" className={classes.arrow} href="#work">
-            <ArrowDownward />
-          </IconButton>
+          {props.width !== "xs" && (
+            <IconButton
+              aria-label="Down"
+              className={classes.arrow}
+              href="#work"
+            >
+              <ArrowDownward />
+            </IconButton>
+          )}
         </Container>
       </Box>
       <Paper className={classes.skills2} elevation={3}>
-        <Collapse in={skills2Active} timeout={1500}>
-          <Grid
-            container
-            alignItems="center"
-            justify="space-evenly"
-            direction="row"
-          >
+        <Grid
+          container
+          alignItems="center"
+          justify="space-evenly"
+          direction="row"
+        >
+          <Grid item>
             <Grid item>
-              <Grid item>
+              <Box
+                position="relative"
+                display="inline-flex"
+                className={classes.spaced2}
+              >
+                <CircularProgress
+                  size={120}
+                  thickness={6}
+                  variant="static"
+                  value={skills2Active ? 40 : 0}
+                  className={classes.progress1}
+                />
                 <Box
-                  position="relative"
-                  display="inline-flex"
-                  className={classes.spaced2}
+                  top={0}
+                  left={0}
+                  bottom={0}
+                  right={0}
+                  position="absolute"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
-                  <CircularProgress
-                    size={120}
-                    thickness={6}
-                    variant="static"
-                    value={skills3Active ? 40 : 0}
-                    className={classes.progress1}
-                  />
-                  <Box
-                    top={0}
-                    left={0}
-                    bottom={0}
-                    right={0}
-                    position="absolute"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
+                  <Typography
+                    variant="overline"
+                    component="div"
+                    color="textSecondary"
                   >
-                    <Typography
-                      variant="overline"
-                      component="div"
-                      color="textSecondary"
-                    >
-                      Project
-                    </Typography>
-                    <AccountTree />
-                  </Box>
+                    Project
+                  </Typography>
+                  <AccountTree />
                 </Box>
-              </Grid>
-              <Grid item>
-                <Typography variant="h6" align="center" gutterBottom>
-                  Technologies/Methods
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemText primary="AGILE" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="LEAN Management" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Specification creation" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Netlify" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Heroku" />
-                  </ListItem>
-                </List>
-              </Grid>
+              </Box>
             </Grid>
-            {props.width === "xs" || props.width === "sm" ? (
-              <Divider variant="middle" className={classes.dividerHorizon} />
-            ) : (
-              <Divider orientation="vertical" flexItem />
-            )}
-
             <Grid item>
-              <Grid item>
-                <Box
-                  position="relative"
-                  display="inline-flex"
-                  className={classes.spaced2}
-                >
-                  <CircularProgress
-                    size={120}
-                    thickness={6}
-                    variant="static"
-                    value={skills3Active ? 60 : 0}
-                    className={classes.progress2}
-                  />
-                  <Box
-                    top={0}
-                    left={0}
-                    bottom={0}
-                    right={0}
-                    position="absolute"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <Typography
-                      variant="overline"
-                      component="div"
-                      color="textSecondary"
-                    >
-                      Back
-                    </Typography>
-                    <FlipToBack />
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item>
-                <Typography variant="h6" align="center" gutterBottom>
-                  Technologies/Methods
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemText primary="Express" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="JOI" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="MongoDB" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="PostgreSQL" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="REST" />
-                  </ListItem>
-                </List>
-              </Grid>
-            </Grid>
-            {props.width === "xs" || props.width === "sm" ? (
-              <Divider variant="middle" className={classes.dividerHorizon} />
-            ) : (
-              <Divider orientation="vertical" flexItem />
-            )}
-            <Grid item>
-              <Grid item>
-                <Box
-                  position="relative"
-                  display="inline-flex"
-                  className={classes.spaced2}
-                >
-                  <CircularProgress
-                    size={120}
-                    thickness={6}
-                    variant="static"
-                    value={skills3Active ? 75 : 0}
-                    className={classes.progress3}
-                  />
-                  <Box
-                    top={0}
-                    left={0}
-                    bottom={0}
-                    right={0}
-                    position="absolute"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <Typography
-                      variant="overline"
-                      component="div"
-                      color="textSecondary"
-                    >
-                      Front
-                    </Typography>
-                    <FlipToFront />
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item>
-                <Typography variant="h6" align="center" gutterBottom>
-                  Technologies/Methods
-                </Typography>
-                <List dense>
-                  <ListItem>
-                    <ListItemText primary="React" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Material UI" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Axios" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Bulma / Bootstrap" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Jest" />
-                  </ListItem>
-                </List>
-              </Grid>
+              <Typography variant="h6" align="center" gutterBottom>
+                Technologies/Methods
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemText primary="AGILE" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="LEAN Management" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Specification creation" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Netlify" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Heroku" />
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
-          <Button
-            className={classes.skillsButton}
-            endIcon={<Description />}
-            fullWidth
-          >
-            Get Resume{" "}
-          </Button>
-        </Collapse>
+          {props.width === "xs" || props.width === "sm" ? (
+            <Divider variant="middle" className={classes.dividerHorizon} />
+          ) : (
+            <Divider orientation="vertical" flexItem />
+          )}
+
+          <Grid item>
+            <Grid item>
+              <Box
+                position="relative"
+                display="inline-flex"
+                className={classes.spaced2}
+              >
+                <CircularProgress
+                  size={120}
+                  thickness={6}
+                  variant="static"
+                  value={skills3Active ? 60 : 0}
+                  className={classes.progress2}
+                />
+                <Box
+                  top={0}
+                  left={0}
+                  bottom={0}
+                  right={0}
+                  position="absolute"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Typography
+                    variant="overline"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    Back
+                  </Typography>
+                  <FlipToBack />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                Technologies/Methods
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemText primary="Express" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="JOI" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="MongoDB" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="PostgreSQL" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="REST" />
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
+          {props.width === "xs" || props.width === "sm" ? (
+            <Divider variant="middle" className={classes.dividerHorizon} />
+          ) : (
+            <Divider orientation="vertical" flexItem />
+          )}
+          <Grid item>
+            <Grid item>
+              <Box
+                position="relative"
+                display="inline-flex"
+                className={classes.spaced2}
+              >
+                <CircularProgress
+                  size={120}
+                  thickness={6}
+                  variant="static"
+                  value={skills4Active ? 75 : 0}
+                  className={classes.progress3}
+                />
+                <Box
+                  top={0}
+                  left={0}
+                  bottom={0}
+                  right={0}
+                  position="absolute"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Typography
+                    variant="overline"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    Front
+                  </Typography>
+                  <FlipToFront />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6" align="center" gutterBottom>
+                Technologies/Methods
+              </Typography>
+              <List dense>
+                <ListItem>
+                  <ListItemText primary="React" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Material UI" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Axios" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Bulma / Bootstrap" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Jest" />
+                </ListItem>
+              </List>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Button
+          className={classes.skillsButton}
+          endIcon={<Description />}
+          fullWidth
+        >
+          Get Resume{" "}
+        </Button>
       </Paper>
 
       <Box id="work" ref={workRef} className={classes.work1}>
         <Container maxWidth="sm">
-          <Zoom in={workActive} timeout={750}>
+          <Zoom in={workActive} timeout={500}>
             <Typography variant="h4" align="center" gutterBottom>
               My Work
             </Typography>
           </Zoom>
           <Zoom
             in={workActive}
-            timeout={750}
+            timeout={500}
             style={{ transitionDelay: workActive ? "330ms" : "0ms" }}
           >
             <Typography variant="body1" align="center" gutterBottom>
               Here is a preview of my last apps, fully responsive & functional.
             </Typography>
           </Zoom>
-          <IconButton
-            aria-label="Down"
-            className={classes.arrow}
-            href="#contact"
-          >
-            <ArrowDownward />
-          </IconButton>
+          {props.width !== "xs" && (
+            <IconButton
+              aria-label="Down"
+              className={classes.arrow}
+              href="#contact"
+            >
+              <ArrowDownward />
+            </IconButton>
+          )}
         </Container>
       </Box>
       <Paper className={classes.work2} elevation={3}>
-        <Collapse in={work2Active} timeout={1500}>
-          <Card className={classes.workCard}>
-            <div>
-              <CardContent>
-                <Grid container direction="row" justify="space-evenly">
-                  <CardMedia
-                    className={classes.workCardMedia}
-                    image="/work/CocktailsLife/index.jpg"
-                    title="CocktailsLife Preview"
-                  />
-                  <Grid item className={classes.spaced2}>
-                    <Typography component="h6" variant="h6">
-                      CocktailsLife
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      A simple application build with :
-                    </Typography>
-                    <List dense>
-                      <ListItem>
-                        <ListItemText secondary="Api : express" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="Database : mongoDB" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="CSS Framework : Bulma" />
-                      </ListItem>
-                    </List>
-                  </Grid>
-                  <Grid item className={classes.spaced2}>
-                    <Button
-                      className={classes.workButton}
-                      endIcon={<PermMedia />}
-                      fullWidth
-                      onClick={() =>
-                        setModal({
-                          active: true,
-                          data: [
-                            { imagePath: "Main.png", label: "Home page" },
-                            { imagePath: "Recipes.png", label: "Recipes list" },
-                            {
-                              imagePath: "Negroni.png",
-                              label: "Negroni recipe",
-                            },
-                          ],
-                          step: 1,
-                        })
-                      }
-                    >
-                      Preview
-                    </Button>
-                    <Button
-                      className={classes.gitButton}
-                      endIcon={<GitHub />}
-                      fullWidth
-                    >
-                      View Code
-                    </Button>
-                  </Grid>
+        <Card className={classes.workCard}>
+          <div>
+            <CardContent>
+              <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/CocktailsLife/index.jpg"
+                  title="CocktailsLife Preview"
+                />
+                <Grid item className={classes.spaced2}>
+                  <Typography component="h6" variant="h6">
+                    CocktailsLife
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    A simple application build with :
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemText secondary="Api : express" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Database : mongoDB" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="CSS Framework : Bulma" />
+                    </ListItem>
+                  </List>
                 </Grid>
-              </CardContent>
-            </div>
-          </Card>
-          <Card className={classes.workCard}>
-            <div>
-              <CardContent>
-                <Grid container direction="row" justify="space-evenly">
-                  <CardMedia
-                    className={classes.workCardMedia}
-                    image="/work/RecipeZ/index.jpg"
-                    title="RecipeZ Preview"
-                  />
-                  <Grid item className={classes.spaced2}>
-                    <Typography component="h6" variant="h6">
-                      RecipeZ
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      A complete application build with :
-                    </Typography>
-                    <List dense>
-                      <ListItem>
-                        <ListItemText secondary="Front : REACT" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="Back : express" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="Database : PostgreSQL" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="CSS Framework : Bulma, SASS" />
-                      </ListItem>
-                    </List>
-                  </Grid>
-                  <Grid item className={classes.spaced2}>
-                    <Button
-                      className={classes.workButton}
-                      endIcon={<PermMedia />}
-                      fullWidth
-                    >
-                      Preview
-                    </Button>
-                    <Button
-                      className={classes.gitButton}
-                      endIcon={<GitHub />}
-                      fullWidth
-                    >
-                      View Code
-                    </Button>
-                  </Grid>
+                <Grid item className={classes.spaced2}>
+                  <Button
+                    className={classes.workButton}
+                    endIcon={<PermMedia />}
+                    fullWidth
+                    onClick={() =>
+                      setModal({
+                        active: true,
+                        data: [
+                          {
+                            imagePath: "/CocktailsLife/Main.png",
+                            label: "Home page",
+                          },
+                          {
+                            imagePath: "/CocktailsLife/Recipes.png",
+                            label: "Recipes list",
+                          },
+                          {
+                            imagePath: "/CocktailsLife/Negroni.png",
+                            label: "Negroni recipe",
+                          },
+                        ],
+                        step: 1,
+                      })
+                    }
+                  >
+                    Preview
+                  </Button>
+                  <Button
+                    className={classes.gitButton}
+                    endIcon={<GitHub />}
+                    fullWidth
+                    href="https://github.com/GraineFutee/CL-website"
+                    target="_blank"
+                  >
+                    View Code
+                  </Button>
                 </Grid>
-              </CardContent>
-            </div>
-          </Card>
-          <Card className={classes.workCard}>
-            <div>
-              <CardContent>
-                <Grid container direction="row" justify="space-evenly">
-                  <CardMedia
-                    className={classes.workCardMedia}
-                    image="/work/ArtOfLevani/index.jpg"
-                    title="ArtOfLevani Preview"
-                  />
-                  <Grid item className={classes.spaced2}>
-                    <Typography component="h6" variant="h6">
-                      ArtOfLevani
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      A professional website build with :
-                    </Typography>
-                    <List dense>
-                      <ListItem>
-                        <ListItemText secondary="Front : NextJs" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="Back : NextJs" />
-                      </ListItem>
-                      <ListItem>
-                        <ListItemText secondary="CSS Framework : Bulma, SASS" />
-                      </ListItem>
-                    </List>
-                  </Grid>
-                  <Grid item className={classes.spaced2}>
-                    <Button
-                      className={classes.workButton}
-                      endIcon={<Public />}
-                      fullWidth
-                    >
-                      Website
-                    </Button>
-                    <Button
-                      className={classes.gitButton}
-                      endIcon={<GitHub />}
-                      fullWidth
-                    >
-                      View Code
-                    </Button>
-                  </Grid>
+              </Grid>
+            </CardContent>
+          </div>
+        </Card>
+        <Card className={classes.workCard}>
+          <div>
+            <CardContent>
+              <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/RecipeZ/index.jpg"
+                  title="RecipeZ Preview"
+                />
+                <Grid item className={classes.spaced2}>
+                  <Typography component="h6" variant="h6">
+                    RecipeZ
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    A complete application build with :
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemText secondary="Front : REACT" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Back : express" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Database : PostgreSQL" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="CSS Framework : Bulma, SASS" />
+                    </ListItem>
+                  </List>
                 </Grid>
-              </CardContent>
-            </div>
-          </Card>
-        </Collapse>
+                <Grid item className={classes.spaced2}>
+                  <Button
+                    className={classes.workButton}
+                    endIcon={<PermMedia />}
+                    fullWidth
+                    onClick={() =>
+                      setModal({
+                        active: true,
+                        data: [
+                          {
+                            imagePath: "/RecipeZ/Main.png",
+                            label: "Home page",
+                          },
+                          {
+                            imagePath: "/RecipeZ/MyRecipes.png",
+                            label: "User recipes list",
+                          },
+                          {
+                            imagePath: "/RecipeZ/Recipe1.png",
+                            label: "Exemple of recipes part1",
+                          },
+                          {
+                            imagePath: "/RecipeZ/Recipe2.png",
+                            label: "Exemple of recipes part2",
+                          },
+                          {
+                            imagePath: "/RecipeZ/SignIn.png",
+                            label: "Sign in page",
+                          },
+                        ],
+                        step: 1,
+                      })
+                    }
+                  >
+                    Preview
+                  </Button>
+                  <Button
+                    className={classes.gitButton}
+                    endIcon={<GitHub />}
+                    fullWidth
+                    href="https://github.com/GraineFutee/Recipez"
+                    target="_blank"
+                  >
+                    View Code
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </div>
+        </Card>
+        <Card className={classes.workCard}>
+          <div>
+            <CardContent>
+              <Grid container direction="row" justify="space-evenly">
+                <CardMedia
+                  className={classes.workCardMedia}
+                  image="/work/ArtOfLevani/index.jpg"
+                  title="ArtOfLevani Preview"
+                />
+                <Grid item className={classes.spaced2}>
+                  <Typography component="h6" variant="h6">
+                    ArtOfLevani
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    A professional website build with :
+                  </Typography>
+                  <List dense>
+                    <ListItem>
+                      <ListItemText secondary="Front : NextJs" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="Back : NextJs" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText secondary="CSS Framework : Bulma, SASS" />
+                    </ListItem>
+                  </List>
+                </Grid>
+                <Grid item className={classes.spaced2}>
+                  <Button
+                    className={classes.workButton}
+                    endIcon={<Public />}
+                    fullWidth
+                    href="https://sad-leakey-a5543e.netlify.app/"
+                    target="_blank"
+                  >
+                    Website
+                  </Button>
+                  <Button
+                    className={classes.gitButton}
+                    endIcon={<GitHub />}
+                    fullWidth
+                    href="https://github.com/GraineFutee/artoflevani"
+                    target="_blank"
+                  >
+                    View Code
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </div>
+        </Card>
       </Paper>
       <Box id="contact" ref={contactRef} className={classes.contact}>
         <Container maxWidth="sm">
-          <Zoom in={contactActive} timeout={750}>
+          <Zoom in={contactActive} timeout={500}>
             <Typography variant="h4" align="center" gutterBottom>
               Contact
             </Typography>
           </Zoom>
-          <IconButton aria-label="Down" className={classes.arrow} href="#top">
-            <ArrowUpward />
-          </IconButton>
+          {props.width !== "xs" && (
+            <IconButton aria-label="Down" className={classes.arrow} href="#top">
+              <ArrowUpward />
+            </IconButton>
+          )}
         </Container>
       </Box>
       <Paper className={classes.contact2} elevation={3}>
-        <Collapse in={contact2Active} timeout={1500}>
-          <Grid className={classes.spaced} container justify="space-evenly">
-            <Grid item>
-              <Typography variant="h6" align="center" gutterBottom>
-                Phone
-              </Typography>
-              <Typography variant="body2" align="center" gutterBottom>
-                +33 7 84 54 39 25
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6" align="center" gutterBottom>
-                E-mail
-              </Typography>
-              <Typography variant="body2" align="center" gutterBottom>
-                pierre.asdrubal@gmail.com
-              </Typography>
-            </Grid>
+        <Grid className={classes.spaced} container justify="space-evenly">
+          <Grid item>
+            <Typography variant="h6" align="center" gutterBottom>
+              Phone
+            </Typography>
+            <Typography variant="body2" align="center" gutterBottom>
+              +33 7 84 54 39 25
+            </Typography>
           </Grid>
-          <Divider variant="middle" />
-          <form action="">
-            <Box className={classes.spaced2}>
-              <TextField
-                label="Name"
-                fullWidth
-                margin="dense"
-                size="small"
-                variant="outlined"
-              />
-              <TextField
-                label="Contact"
-                fullWidth
-                margin="dense"
-                size="small"
-                variant="outlined"
-              />
-              <TextField
-                label="Message"
-                fullWidth
-                margin="dense"
-                size="small"
-                variant="outlined"
-                multiline
-                rows={4}
-              />
-              <Button
-                className={classes.contactButton}
-                endIcon={<Send />}
-                fullWidth
-              >
-                Send{" "}
-              </Button>
-            </Box>
-          </form>
-        </Collapse>
+          <Grid item>
+            <Typography variant="h6" align="center" gutterBottom>
+              E-mail
+            </Typography>
+            <Typography variant="body2" align="center" gutterBottom>
+              pierre.asdrubal@gmail.com
+            </Typography>
+          </Grid>
+        </Grid>
+        <Divider variant="middle" />
+        <form action="">
+          <Box className={classes.spaced2}>
+            <TextField
+              label="Name"
+              fullWidth
+              margin="dense"
+              size="small"
+              variant="outlined"
+            />
+            <TextField
+              label="Contact"
+              fullWidth
+              margin="dense"
+              size="small"
+              variant="outlined"
+            />
+            <TextField
+              label="Message"
+              fullWidth
+              margin="dense"
+              size="small"
+              variant="outlined"
+              multiline
+              rows={4}
+            />
+            <Button
+              className={classes.contactButton}
+              endIcon={<Send />}
+              fullWidth
+            >
+              Send{" "}
+            </Button>
+          </Box>
+        </form>
       </Paper>
       <Modal
         open={modal.active}
@@ -880,8 +939,8 @@ function App(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div>
-          <Paper square elevation={0}>
+        <div className={classes.modalBody}>
+          <Paper square elevation={0} className={classes.modalHeader}>
             <Typography>
               {modal.data.length > 0 ? modal.data[modal.step - 1].label : ""}
             </Typography>
@@ -890,7 +949,7 @@ function App(props) {
             className={classes.modalImg}
             src={
               modal.data.length > 0
-                ? `/work/CocktailsLife/${modal.data[modal.step - 1].imagePath}`
+                ? `/work/${modal.data[modal.step - 1].imagePath}`
                 : ""
             }
             alt={modal.data.length > 0 ? modal.data[modal.step - 1].label : ""}
