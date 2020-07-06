@@ -698,15 +698,15 @@ function App(props) {
                         active: true,
                         data: [
                           {
-                            imagePath: "/CocktailsLife/Main.png",
+                            imagePath: "/CocktailsLife/Main.jpg",
                             label: "Home page",
                           },
                           {
-                            imagePath: "/CocktailsLife/Recipes.png",
+                            imagePath: "/CocktailsLife/Recipes.jpg",
                             label: "Recipes list",
                           },
                           {
-                            imagePath: "/CocktailsLife/Negroni.png",
+                            imagePath: "/CocktailsLife/Negroni.jpg",
                             label: "Negroni recipe",
                           },
                         ],
@@ -771,23 +771,23 @@ function App(props) {
                         active: true,
                         data: [
                           {
-                            imagePath: "/RecipeZ/Main.png",
+                            imagePath: "/RecipeZ/Main.jpg",
                             label: "Home page",
                           },
                           {
-                            imagePath: "/RecipeZ/MyRecipes.png",
+                            imagePath: "/RecipeZ/MyRecipes.jpg",
                             label: "User recipes list",
                           },
                           {
-                            imagePath: "/RecipeZ/Recipe1.png",
+                            imagePath: "/RecipeZ/Recipe1.jpg",
                             label: "Exemple of recipes part1",
                           },
                           {
-                            imagePath: "/RecipeZ/Recipe2.png",
+                            imagePath: "/RecipeZ/Recipe2.jpg",
                             label: "Exemple of recipes part2",
                           },
                           {
-                            imagePath: "/RecipeZ/SignIn.png",
+                            imagePath: "/RecipeZ/SignIn.jpg",
                             label: "Sign in page",
                           },
                         ],
@@ -898,9 +898,10 @@ function App(props) {
           </Grid>
         </Grid>
         <Divider variant="middle" />
-        <form action="">
+        <form name="messages" method="POST" data-netlify="true">
           <Box className={classes.spaced2}>
             <TextField
+              name="name"
               label="Name"
               fullWidth
               margin="dense"
@@ -908,6 +909,7 @@ function App(props) {
               variant="outlined"
             />
             <TextField
+              name="contact"
               label="Contact"
               fullWidth
               margin="dense"
@@ -915,6 +917,7 @@ function App(props) {
               variant="outlined"
             />
             <TextField
+              name="message"
               label="Message"
               fullWidth
               margin="dense"
@@ -923,10 +926,12 @@ function App(props) {
               multiline
               rows={4}
             />
+
             <Button
               className={classes.contactButton}
               endIcon={<Send />}
               fullWidth
+              type="submit"
             >
               Send{" "}
             </Button>
