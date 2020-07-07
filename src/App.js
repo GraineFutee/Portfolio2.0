@@ -898,10 +898,11 @@ function App(props) {
           </Grid>
         </Grid>
         <Divider variant="middle" />
-        <form method="POST" data-netlify={true}>
+        <form name="messages" method="POST">
+          <input type="hidden" name="form-name" value="messages" />
           <Box className={classes.spaced2}>
             <TextField
-              id="name"
+              type="text"
               name="name"
               label="Name"
               fullWidth
@@ -910,7 +911,7 @@ function App(props) {
               variant="outlined"
             />
             <TextField
-              id="contact"
+              type="text"
               name="contact"
               label="Contact"
               fullWidth
@@ -919,7 +920,6 @@ function App(props) {
               variant="outlined"
             />
             <TextField
-              id="message"
               name="message"
               label="Message"
               fullWidth
@@ -935,7 +935,6 @@ function App(props) {
               endIcon={<Send />}
               fullWidth
               type="submit"
-              value="Send Message"
             >
               Send
             </Button>
